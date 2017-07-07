@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>闹闹音乐</title>
+	<link rel="stylesheet" href="css/jquery.fullPage.css">
+
+
+	<!-- 热门歌单样式 -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+
+	<style>
+		#menu { position: fixed; right: 25px; list-style-type: none; z-index: 70; height: 20px; top: 120px;}
+		#menu li { float: left; margin:  0 20px 0 0; font-size: 14px; height: 20px; }
+		#menu a { float: left; padding: 10px 20px; background-color: #fff; color: #333; text-decoration: none; height: 20px; line-height: 20px; border-radius:15px; width: 60px; text-align: center;}
+		#menu .active a { color: #fff; background-color: #666;} 
+		.section { text-align: center; font: 50px "Microsoft Yahei"; color: #fff; overflow: hidden;}
+		.section{}
+		.section1{ background:#fff;}
+		.section4{ background: url(images/001.jpg) 60% ;}
+		.section3{ background:url(images/000.jpg) 50% 25%;}
+		._nav{position:absolute; left: 100px; top: 10px;}
+		._nav h1{position: absolute; left: 30px; top: 35px; color: #333;width: 400px;font-size: 46px;}
+		.section #_se1_ul{color: #333;list-style: none;position:absolute;left: 420px;top: 50px;}
+		.section #_se1_ul li{float: left; margin-left: 20px;font-size: 30px; height: 60px;width: 130px;border-radius: 30px;line-height: 60px;}
+		.section #_se1_ul li:hover{color: #528da7;}
+		._search{ height: 30px; width: 200px; border:1px solid #999;position: absolute;top: 65px;right: 200px;color: #999;padding-left: 5px;}
+		._search1{height: 20px; width: 20px;position: absolute;top: 73px;right: 210px;}
+		._search1:hover{cursor: pointer;}
+		.section1 p{position: absolute;top: 75px;right: 100px; font-size: 14px; float: left;}
+		.section1 p span{ float: left; color:#666; }
+		.section1 p a{ text-decoration: none; color: #666; float: left;}
+
+		/*新歌首发样式*/
+		.pic{
+		  width: 120px;
+		  height: 180px;
+		  margin: 10px auto ;
+		  position: relative;
+		  /*transform 旋转元素*/
+		  transform-style:preserve-3d;
+		  transform:perspective(800px) rotateX(-10deg) rotateY(0deg);
+		}
+		.pic img{
+		  position: absolute;
+		  width: 100%;
+		  height: 100%;
+		  border-radius: 5px;
+		  box-shadow: 0px 0px 10px #fff;
+		  /*倒影的设置*/
+		  -webkit-box-reflect:below 10px -webkit-linear-gradient(top,rgba(0,0,0,0) 50%,rgba(0,0,0,.5) 100%);
+		}  
+		.pic h1{
+			position: absolute;
+		}
+		.pic p{
+		  width: 1200px;
+		  height: 1200px;
+		  background: -webkit-radial-gradient(center center,600px 600px,rgba(255,255,255,.5),rgba(0,0,0,0));
+		  position: absolute;
+		  top:100%;left:50%;
+		  margin-top: -600px;
+		  margin-left: -600px;
+		  border-radius:600px;
+		  transform:rotateX(90deg);
+		}  
+		/*热门歌单  四方体*/ 
+		#trans3DDemo1 {
+		  position:absolute;
+		  top: 0px;
+		  left:-400px;
+		  display:inline-block;
+		  width:250px;
+		  height:250px;
+		}
+		 
+		#trans3DBoxes1 div {
+		  position:absolute;
+		  width:248px;
+		  height:248px;
+		  padding:0;
+		  margin:0;
+		  background:url(images/nn2.jpg);
+		  display:block;
+		  text-align:center;
+		  font-size:36px;
+		  font-weight:bold;
+		} 
+		#trans3DBoxes1 div:nth-child(2){
+		  background:url(images/nn6.jpg);
+		}
+		#trans3DBoxes1 div:nth-child(3){
+		  background:url(images/nn1.jpg);
+		} 
+		#trans3DBoxes1 div:nth-child(4){
+		  background:url(images/nn3.jpg);
+		} 
+		#trans3DBoxes1 div:nth-child(5){
+		  background:url(images/nn4.jpg);
+		} 
+		#trans3DBoxes1 div:nth-child(6){
+		  background:url(images/nn5.jpg);
+		} 
+		/*热门歌单  歌单*/ 
+		.song_sheet1{
+			position: absolute;
+			top: 100px;
+			left: -120%;
+			width: 200px;
+			height: 320px;
+		}
+		.song_sheet2{
+			position: absolute;
+			top: 100px;
+			left: -120%;
+			width: 200px;
+			height: 150px;
+		}
+		.song_sheet3{
+			position: absolute;
+			top: 100px;
+			left: -120%;
+			width: 200px;
+			height: 150px;
+		}
+		.song_sheet4{
+			position: absolute;
+			top: 440px;
+			left: -120%;
+			width: 200px;
+			height: 150px;
+		}
+		.song_sheet5{
+			position: absolute;
+			left: -120%;
+			top: 270px;
+			width: 200px;
+			height: 320px;
+		}
+		.song_sheet6{
+			position: absolute;
+			top: 270px;
+			left: -120%;
+			width: 200px;
+			height: 150px;
+		}
+		.song_sheet7{
+			position: absolute;
+			left: -120%;
+			top:440px;
+			width: 200px;
+			height: 150px;
+		}
+		.sheet1,.sheet2, .sheet3,.sheet4,.sheet5,.sheet6,.sheet7{background-color:rgba(82,141,167,0.7); display: none;}
+		.sheet1 h1,.sheet5 h1{font-size: 26px;line-height: 50px;margin-top: 100px;}
+		.sheet1 h2,.sheet5 h2{font-size: 16px;line-height: 30px;text-align: center;}
+		.sheet1 p,.sheet5 p{font-size: 14px;margin: 10px auto; width: 90%; }
+		.sheet2 h1, .sheet3 h1, .sheet4 h1, .sheet6 h1, .sheet7 h1{font-size: 26px; margin-top: 40px; line-height: 50px;}
+		.sheet2 h2, .sheet3 h2, .sheet4 h2, .sheet6 h2, .sheet7 h2{font-size: 16px; line-height: 25px;}
+
+		/*马上体验*/
+        .section7 .bg img { display: block; width: 100%; height: 100%;}
+        .bg101 { position: absolute; width: 100%; height: 100%; background: url(images/0007.jpg) 100% 90% no-repeat; top: 0px;}
+        .nn{background:url(images/007.jpg); width: 684px;height: 215px;position: absolute;top:173px;right: -120%;border-radius: 20px;}
+		.go{ position: absolute; left: 50%; bottom:-120%; width: 254px; height: 70px; border-radius:10px;color: #fff; background:#666;color: #fff; font-size: 35px; line-height: 70px;}
+		.go:hover{color: #323333;background-color: #fff;}
+
+
+
+		/*歌手*/
+		
+
+		#section3_nav li{height: 50px;width: 200px;background-color: #105187;border-radius: 18px;margin-top: 10px;position: absolute;left: -120%;}
+		#section3_nav #_nav1{top: 50px;}
+		#section3_nav #_nav2{top: 120px;}
+		#section3_nav #_nav3{top: 190px;}
+		#section3_nav #_nav4{top: 260px;}
+		#section3_nav #_nav5{top: 330px;}
+
+		#section3_nav li:hover{background-color: #fff;}
+		#section3_nav li a{font-size: 18px;color: #fff; font-style: '微软雅黑'; line-height: 50px;}
+		#section3_nav li a:hover{color: #105187;}
+	</style>
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script src="js/jquery.fullPage.min.js"></script>
+
+	<!-- 首页轮播样式 -->
+	<link rel="stylesheet" type="text/css" href="css/posterTvGrid.css">
+	<!-- 歌手万花筒事件 -->
+	<script src="path/to/js/jquery.min.js"></script>
+	<!-- 热门歌单js -->
+	<script src="js/1.11.0/jquery.min.js" type="text/javascript"></script>
+	<script>window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')</script>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js'></script>
+	<script type="text/javascript" src="js/index.js"></script>
+
+	<script type="text/javascript">
+	//立方体
+		    $(function(){
+		    	var trans3DDemo1 = $("#trans3DDemo1"), 
+			    trans3DBoxes1 = $("#trans3DBoxes1"),// div containing all the the boxes
+			    boxes1 = $("#trans3DBoxes1 div"), // all the boxes
+			    threeDTimeline = new TimelineMax({onUpdate:updateCube, repeat:-1}),
+			    stageW = ($(window).width())/2,
+			    stageH = ($(window).height())/2,
+			    stageX = (stageW-(trans3DBoxes1.width()/2)),
+			    stageY = (stageH-(250/2));
+			TweenMax.set(trans3DBoxes1, {css:{transformPerspective:3000, transformStyle:"preserve-3d"}}); //
+			threeDTimeline.set(boxes1[0], {rotationX:0, rotationY:0, x:0, y:0, z:125, opacity:0.85})
+			              .set(boxes1[1], {rotationX:0, rotationY:-90, x:-125, y:0, z:0, opacity:0.85})
+			        .set(boxes1[2], {rotationX:0, rotationY:90, x:125, y:0, z:0, opacity:0.85})
+			        .set(boxes1[3], {rotationX:90, rotationY:0, x:0, y:-125, z:0, opacity:0.85})
+			        .set(boxes1[4], {rotationX:-90, rotationY:0, x:0, y:125, z:0, opacity:0.85})
+			        .set(boxes1[5], {rotationX:0, rotationY:180, x:0, y:0, z:-125, opacity:0.85})
+			        .set(trans3DBoxes1, {x:150, y:150, transformOrigin:"125px 125px 0px"});
+			 
+			// hover events
+			boxes1.each(function (index, element) {
+			      $(element).hover(over, out);
+			      function over(){
+			        TweenMax.to(element, 0.15, {opacity:0.33});
+			        //threeDTimeline.pause();
+			      }
+			      function out(){
+			        TweenMax.to(element, 0.15, {opacity:0.85});
+			        //threeDTimeline.play();
+			      }
+				});
+ 
+				threeDTimeline.to(trans3DBoxes1, 15, {css:{rotationY:360, rotationX:-720, transformOrigin:"125px 125px 0px"}, ease:Power0.easeNone});
+				 
+				function updateCube(){
+				  stageW = ($(window).width())/2;
+				  stageH = ($(window).height())/2;
+				  stageX = (stageW-(trans3DBoxes1.width()/2));
+				  stageY = (stageH-(250/2));
+				  TweenMax.to(trans3DBoxes1, 1, {css:{x:stageX, y:stageY}});
+				}      
+		    })        
+	</script>
+	<!-- 回调函数 -->
+	<script>
+	    //首页   热门歌单
+		$(function(){
+			$('#dowebok').fullpage({
+				anchors: ['page1', 'page2', 'page3', 'page4', 'page5', 'page6', 'page7'],
+				menu: '#menu',
+				afterLoad: function(anchorLink, index){
+					if(index=='4'){
+						$('.song_sheet1').animate({
+							left:'550px'
+						},500)
+						$('.song_sheet4').animate({
+							left:'550px'
+						},800)
+						$('.song_sheet2').animate({
+							left: '770px'
+						},600)
+						$('.song_sheet3').animate({
+							left:'990px'
+						},700)
+						$('.song_sheet6').animate({
+							left:'990px'
+						},1000)
+
+						$('.song_sheet5').animate({
+							left: '770px'
+						},900)
+						$('.song_sheet7').animate({
+							left: '990px'
+						},1100)
+					}
+					if(index=='7'){
+						$('.nn').animate({
+							right:'5px'
+						},700)
+						$('.go').animate({
+							bottom:'120px'
+						},900)
+					}
+					if(index=='1'){
+						$('#menu').first().animate({
+								top: '120px'
+						}, 0);
+					}
+					if(index=='3'){
+						$('#_nav1').animate({
+								left: '90px'
+						}, 500);
+						$('#_nav2').animate({
+								left: '90px'
+						}, 600);
+						$('#_nav3').animate({
+								left: '90px'
+						}, 700);
+						$('#_nav4').animate({
+								left: '90px'
+						}, 800);
+						$('#_nav5').animate({
+								left: '90px'
+						}, 900);
+					}
+				},
+				onLeave: function(index,nextIndex, direction){
+						if(index == '2'){
+							if(direction=='up'){
+								$('#menu').first().animate({
+										top: '120px'
+									}, 0);
+							}
+						}
+						if(index == "1"){
+							if(direction=='down'){	
+								$('#menu').animate({
+									top: '30px'
+								}, 0);
+							}
+						}
+						if(index=='4'){
+							$('.song_sheet1').animate({
+								left:'-120%'
+							},1000)
+							$('.song_sheet4').animate({
+								left:'-120%'
+							},1000)
+							$('.song_sheet2').animate({
+								left:'-120%'
+							},1000)
+							$('.song_sheet3').animate({
+								left:'-120%'
+							},1000)
+							$('.song_sheet6').animate({
+								left:'-120%'
+							},1000)
+
+							$('.song_sheet5').animate({
+								left:'-120%'
+							},1000)
+							$('.song_sheet7').animate({
+								left:'-120%'
+							},1000)
+						}
+						if(index=='7'){
+							$('.go').animate({
+								bottom:'-120%'
+							},1000)
+							$('.nn').animate({
+								right:'-120%'
+							},700)
+						}
+						if(index=='3'){
+						$('#_nav1').animate({
+								left: '-120%'
+						}, 500);
+						$('#_nav2').animate({
+								left: '-120%'
+						}, 600);
+						$('#_nav3').animate({
+								left: '-120%'
+						}, 700);
+						$('#_nav4').animate({
+								left: '-120%'
+						}, 800);
+						$('#_nav5').animate({
+								left: '-120%'
+						}, 900);
+					}
+				}
+			});
+
+		});
+		///歌手
+		$(function(){
+ 
+		  var imgL=$(".pic img").size();
+		  var deg=360/imgL;
+		  var roY=0,roX=-10;
+		  var xN=0,yN=0;
+		  var play=null;
+		 
+		  $(".pic img").each(function(i){
+		    $(this).css({
+		      <!--translateZ 定义2d旋转沿着z轴-->
+		      "transform":"rotateY("+i*deg+"deg) translateZ(300px)" });
+		      <!--防止图片被拖拽-->
+		      $(this).attr('ondragstart','return false');
+		    });
+		 
+		    $(document).mousedown(function(ev){
+		    var x_=ev.clientX;
+		    var y_=ev.clientY;
+		    clearInterval(play);
+		      //console.log('我按下了');
+		      $(this).bind('mousemove',function(ev){
+		        /*获取当前鼠标的坐标*/
+		        var x=ev.clientX;
+		        var y=ev.clientY;
+		              /*两次坐标之间的距离*/
+		                xN=x-x_;
+		          yN=y-y_;
+		 
+		         roY+=xN*0.2;
+		        roX-=yN*0.1;
+		        //console.log('移动');
+		   
+		        $('.pic').css({
+		          transform:'perspective(800px) rotateX('+roX+'deg) rotateY('+roY+'deg)'
+		        });
+		        /*之前的鼠标坐标*/
+		           x_=ev.clientX;
+		           y_=ev.clientY;
+		 
+		      });
+		    }).mouseup(function(){
+		            $(this).unbind('mousemove');
+		            var play=setInterval(function(){
+		              
+		             xN*=0.95;
+		             yN*=0.95
+		             if(Math.abs(xN)<1 && Math.abs(yN)<1){
+		                clearInterval(play);
+		             }
+		              roY+=xN*0.2;
+		        roX-=yN*0.1;
+		        $('.pic').css({
+		          transform:'perspective(800px) rotateX('+roX+'deg) rotateY('+roY+'deg)'
+		        });
+		 
+		      },30);
+		 
+		    });
+		 
+		  }); 
+
+		//热门歌单
+		$(function(){
+			/*$('.song1').mouseover(function(){
+				$('.sheet1').slideDown();
+			}),
+			$('.sheet1').mouseout(function(){
+				$('.sheet1').slideUp();
+			})*/
+
+			/*function slide(_index1){
+				$(.'_index1').hover(function(){
+					$('_index1').slideDown();
+				},function(){
+					$(.'_index1').slideUp();
+				})
+			}
+			slide('song1');*/
+			$('.song1').hover(function(){
+				$('.sheet1').slideDown();
+			},function(){
+				$('.sheet1').slideUp();
+			});
+			
+			$('.sheet1').hover(function(){
+				$('.sheet1').slideDown();
+			},function(){
+				$('.sheet1').slideUp();
+			});
+
+
+
+
+			$('.song2').hover(function(){
+				$('.sheet2').slideDown();
+			},function(){
+				$('.sheet2').slideUp();
+			});
+			$('.song3').hover(function(){
+				$('.sheet3').slideDown();
+			},function(){
+				$('.sheet3').slideUp();
+			}),
+			$('.song4').hover(function(){
+				$('.sheet4').slideDown();
+			},function(){
+				$('.sheet4').slideUp();
+			}),
+			$('.song5').hover(function(){
+				$('.sheet5').slideDown();
+			},function(){
+				$('.sheet5').slideUp();
+			}),
+			$('.song6').hover(function(){
+				$('.sheet6').slideDown();
+			},function(){
+				$('.sheet6').slideUp();
+			}),
+			$('.song7').hover(function(){
+				$('.sheet7').slideDown();
+			},function(){
+				$('.sheet7').slideUp();
+			})
+			
+		});
+	</script>
+</head>
+<body>
+<!-- 固定导航栏 ul-->	
+<ul id="menu">
+	<li data-menuanchor="page1" class="active"><a href="#page1">首页</a></li>
+	<li data-menuanchor="page2"><a href="#page2">新歌首发</a></li>
+	<li data-menuanchor="page3"><a href="#page3">歌手</a></li>
+	<li data-menuanchor="page4"><a href="#page4">热门歌单</a></li>
+	<li data-menuanchor="page5"><a href="#page5">排行榜</a></li>
+	<li data-menuanchor="page6"><a href="#page6">MV首播</a></li>
+	<li data-menuanchor="page7"><a href="#page7">音乐之旅</a></li>
+</ul>
+<div id="dowebok">
+	<!-- 首页 -->
+	<div class="section section1">
+		<nav class="_nav"><img src="images/logo.png" alt="logo" title="闹闹音乐"><h1>闹闹音乐</h1></nav>
+		<ul id="_se1_ul">
+			<li>音乐馆</li>
+			<li>我的乐库</li>
+			<li>客户端</li>
+		</ul>
+		<div>
+		<input type="text" name="" class="_search" placeholder="歌手张杰">
+		<img src="images/search.png" class="_search1">
+		<p><a href="#"> 登录  </a><span>&nbsp| &nbsp </span><a href="">   注册</a></p>
+		</div>
+		<br>
+		<div class="htmleaf-content">
+			<div id="posterTvGrid" style="margin:40px auto 0 auto;"></div>
+		</div>
+	</div>
+	<!-- 新歌首发 -->
+	<div class="section section2" >
+	  <div class="main" id="newSong">
+	    <div class="main-inner">
+	      <div class="main-title">
+	      </div>
+	      <a href="#" class="readAll">全部<i class="icon-sprite"></i></a>
+	      <div class="main-tab tab-title">
+	        <a href="javascript:;" class="item item-cur">全部</a>
+	        <a href="javascript:;" class="item">华语</a>
+	        <a href="javascript:;" class="item">欧美</a>
+	        <a href="javascript:;" class="item">韩国</a>
+	        <a href="javascript:;" class="item">日本</a>
+	      </div>
+	      <div class="main-slider tab-cont">
+	        <ul class="slider-wrapper">
+	          <li>
+	            <a href="#" class="img">
+	              <img src="images/cont/zly.jpg" alt="#">
+	              <span class="mask"></span>
+	              <i class="icon-play"></i>
+	            </a>
+	            <div class="info">
+	              <div class="title">
+	                <a href="#">BANG THE WORLD</a>
+	                <i class="icon-sprite"></i>
+	              </div>
+	              <a href="#" class="author">张靓颖</a>
+	            </div>
+	          </li>
+	          <li>
+	            <a href="#" class="img">
+	              <img src="images/cont/zj.jpg" alt="#">
+	              <span class="mask"></span>
+	              <i class="icon-play"></i>
+	            </a>
+	            <div class="info">
+	              <div class="title">
+	                <a href="#">那些还相信的爱与勇气</a>
+	                <i class="icon-sprite"></i>
+	              </div>
+	              <a href="#" class="author">张杰</a>
+	            </div>
+	          </li>
+	          <li>
+	            <a href="#" class="img">
+	              <img src="images/cont/hyb.jpg" alt="#">
+	              <span class="mask"></span>
+	              <i class="icon-play"></i>
+	            </a>
+	            <div class="info">
+	              <div class="title">
+	                <a href="#">X</a>
+	                <i class="icon-sprite"></i>
+	              </div>
+	              <a href="#" class="author">胡彦斌</a>
+	            </div>
+	          </li>
+	          <li>
+	            <a href="#" class="img">
+	              <img src="images/cont/lyg.jpg" alt="#">
+	              <span class="mask"></span>
+	              <i class="icon-play"></i>
+	            </a>
+	            <div class="info">
+	              <div class="title">
+	                <a href="#">刚好遇见你</a>
+	                <i class="icon-sprite"></i>
+	              </div>
+	              <a href="#" class="author">李玉刚</a>
+	            </div>
+	          </li>
+	          <li>
+	            <a href="#" class="img">
+	              <img src="images/cont/slider_img1.jpg" alt="#">
+	              <span class="mask"></span>
+	              <i class="icon-play"></i>
+	            </a>
+	            <div class="info">
+	              <div class="title">
+	                <a href="#">那个静默的阳光午后</a>
+	                <i class="icon-sprite"></i>
+	              </div>
+	              <a href="#" class="author">范玮琪</a>
+	            </div>
+	          </li>
+	          <li>
+	            <a href="#" class="img">
+	              <img src="images/cont/slider_img2.jpg" alt="#">
+	              <span class="mask"></span>
+	              <i class="icon-play"></i>
+	            </a>
+	            <div class="info">
+	              <div class="title">
+	                <a href="#">那个静默的阳光午后</a>
+	                <i class="icon-sprite"></i>
+	              </div>
+	              <a href="#" class="author">范玮琪</a>
+	            </div>
+	          </li>
+	          <li>
+	            <a href="#" class="img">
+	              <img src="images/cont/slider_img3.jpg" alt="#">
+	              <span class="mask"></span>
+	              <i class="icon-play"></i>
+	            </a>
+	            <div class="info">
+	              <div class="title">
+	                <a href="#">那个静默的阳光午后</a>
+	                <i class="icon-sprite"></i>
+	              </div>
+	              <a href="#" class="author">范玮琪</a>
+	            </div>
+	          </li>
+	          <li>
+	            <a href="#" class="img">
+	              <img src="images/cont/slider_img4.jpg" alt="#">
+	              <span class="mask"></span>
+	              <i class="icon-play"></i>
+	            </a>
+	            <div class="info">
+	              <div class="title">
+	                <a href="#">那个静默的阳光午后</a>
+	                <i class="icon-sprite"></i>
+	              </div>
+	              <a href="#" class="author">范玮琪</a>
+	            </div>
+	          </li>
+	          <li>
+	            <a href="#" class="img">
+	              <img src="images/cont/slider_img1.jpg" alt="#">
+	              <span class="mask"></span>
+	              <i class="icon-play"></i>
+	            </a>
+	            <div class="info">
+	              <div class="title">
+	                <a href="#">那个静默的阳光午后</a>
+	                <i class="icon-sprite"></i>
+	              </div>
+	              <a href="#" class="author">范玮琪</a>
+	            </div>
+	          </li>
+	          <li>
+	            <a href="#" class="img">
+	              <img src="images/cont/slider_img2.jpg" alt="#">
+	              <span class="mask"></span>
+	              <i class="icon-play"></i>
+	            </a>
+	            <div class="info">
+	              <div class="title">
+	                <a href="#">那个静默的阳光午后</a>
+	                <i class="icon-sprite"></i>
+	              </div>
+	              <a href="#" class="author">范玮琪</a>
+	            </div>
+	          </li>
+	          <li>
+	            <a href="#" class="img">
+	              <img src="images/cont/slider_img3.jpg" alt="#">
+	              <span class="mask"></span>
+	              <i class="icon-play"></i>
+	            </a>
+	            <div class="info">
+	              <div class="title">
+	                <a href="#">那个静默的阳光午后</a>
+	                <i class="icon-sprite"></i>
+	              </div>
+	              <a href="#" class="author">范玮琪</a>
+	            </div>
+	          </li>
+	          <li>
+	            <a href="#" class="img">
+	              <img src="images/cont/slider_img4.jpg" alt="#">
+	              <span class="mask"></span>
+	              <i class="icon-play"></i>
+	            </a>
+	            <div class="info">
+	              <div class="title">
+	                <a href="#">那个静默的阳光午后</a>
+	                <i class="icon-sprite"></i>
+	              </div>
+	              <a href="#" class="author">范玮琪</a>
+	            </div>
+	          </li>
+	        </ul>
+	        <div class="slider-btns">
+	          <span class="cur"><i></i></span>
+	          <span><i></i></span>
+	          <span><i></i></span>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="main-operate">
+	      <a href="javascript:;" class="slider-prev"><i class="icon-sprite"></i></a>
+	      <a href="javascript:;" class="slider-next"><i class="icon-sprite"></i></a>
+	    </div>
+	  </div>
+	</div>
+	<!-- 歌手 -->
+	<div class="section section3">
+        <div id="section3_nav">
+	        <ul>
+	        	<li id="_nav1"><a href="#">华语男歌手</a></li>
+	        	<li id="_nav2"><a href="#" id="_nav2">华语女歌手</a></li>
+	        	<li id="_nav3"><a href="#" id="_nav3">日韩男歌手</a></li>
+	        	<li id="_nav4"><a href="#" id="_nav4">日韩女歌手</a></li>
+	        	<li id="_nav5"><a href="#" id="_nav5">更多歌手</a></li>
+	        </ul>
+        </div>
+		<div class="pic">
+		  <img src="images/11.png" title="张杰" />
+		  <img src="images/14.png" title="李健" />
+		  <img src="images/12.png" title="张杰" />
+		  <img src="images/13.png" title="薛之谦" />
+		  <img src="images/15.png" title="邓紫棋" />
+		  <img src="images/16.png" title="陈奕迅" />
+		  <img src="images/17.png" title="张靓颖" />
+		  <img src="images/18.png" title="许嵩" />
+		  <img src="images/19.png" title="李玟" />
+		  <img src="images/20.png" title="赵雷" />
+		  <p></p>
+		</div> 
+	</div>
+	<!-- 热门歌单 -->
+	<div class="section section4">
+		<div id="trans3DDemo1">
+		      <div id="trans3DBoxes1">
+		          <div></div>
+		          <div></div>
+		          <div></div>
+		          <div></div>
+		          <div></div>
+		          <div></div>
+		      </div>
+		</div> 
+			<img src="images/song-sheet/1.jpg" class="song_sheet1 song1">
+			<img src="images/song-sheet/2.jpg" class="song_sheet2 song2">
+			<img src="images/song-sheet/3.jpg" class="song_sheet3 song3">
+			<img src="images/song-sheet/10.jpg" class="song_sheet4 song4">
+			<img src="images/song-sheet/5.jpg" class="song_sheet5 song5">
+			<img src="images/song-sheet/7.jpg" class="song_sheet6 song6">
+			<img src="images/song-sheet/6.jpg" class="song_sheet7 song7">
+			<div class="song_sheet1 sheet1" style="left: 550px;">
+				<h1>华语</h1>
+				<h2>拼了命的想，疯了似的忘</h2>
+				<p>如果相逢是缘，这份缘又总是来去匆匆，缘来缘去就像海面的浮萍，短暂的相聚就面临各分东西，情感也许是最脆弱的，经不起暴风雨的……</p>
+			</div>
+			<div class="song_sheet2 sheet2" style="left: 770px;">
+				<H1>欧美</H1>
+				<h2>灵动节奏，直抵内心深处的电音男声</h2>
+			</div>
+			<div class="song_sheet3 sheet3" style="left: 990px;">
+				<h1>民谣</h1>
+				<h2>超凡表现不惧向前之沿海篇</h2>
+			</div>
+			<div class="song_sheet4 sheet4" style="left: 550px;">
+				<h1>独立派</h1>
+				<h2>不可不知的中国独立歌手</h2>
+			</div>
+			<div class="song_sheet5 sheet5" style="left: 770px;">
+				<h1>欧美</h1>
+				<h2>直抵内心深处的电音男声</h2>
+				<p>音乐是心灵的直接“语言”，是听觉的艺术，是心情的艺术，更是灵魂的完美表现。歌单中的每一首音乐都经过精挑细选，对待音乐如同……</p>
+			</div>
+			<div class="song_sheet6 sheet6" style="left: 990px;">
+				<h1>年轻的声音</h1>
+				<h2>90后实力派女声优盘点</h2>
+			</div>
+			<div class="song_sheet7 sheet7" style="left: 990px;">
+				<h1>匪帮说唱</h1>
+				<h2>听了这么多假的，这回我们玩真的</h2>
+			</div>
+	</div>
+	<!-- 排行榜 -->
+	<div class="section section5">
+		<div class="main" id="rank">
+		    <div class="main-inner">
+		      <div class="main-title">
+		        <!-- <h2 class="title"><i></i></h2>
+		        <span class="line line-left"></span>
+		        <span class="line line-right"></span> -->
+		      </div>
+		      <a href="#" class="readAll">全部<i class="icon-sprite"></i></a>
+		      <ul class="rank-list">
+		        <li class="rank-list__item rank-list__1">
+		          <span class="rank-bg"></span>
+		          <span class="mask"></span>
+		          <i class="icon-play"></i>
+		          <div class="title">
+		            <i></i>
+		            <h3>流行指数</h3>
+		          </div>
+		          <i class="line"></i>
+		          <ul class="song-list">
+		            <li class="song-list__item">
+		              <a href="#"><span>1</span>别来纠缠我(Live)</a>
+		              <span>张杰</span>
+		            </li>
+		            <li class="song-list__item">
+		              <a href="#"><span>2</span>安静</a>
+		              <span>周杰伦</span>
+		            </li>
+		            <li class="song-list__item">
+		              <a href="#"><span>3</span>自己 (Live)</a>
+		              <span>张杰</span>
+		            </li>
+		            <li class="song-list__item">
+		              <a href="#"><span>4</span>她说</a>
+		              <span>林俊杰</span>
+		            </li>
+		          </ul>
+		        </li>
+		        <li class="rank-list__item rank-list__2">
+		          <span class="rank-bg"></span>
+		          <span class="mask"></span>
+		          <i class="icon-play"></i>
+		          <div class="title">
+		            <i></i>
+		            <h3>热歌</h3>
+		          </div>
+		          <i class="line"></i>
+		          <ul class="song-list">
+		            <li class="song-list__item">
+		              <a href="#"><span>1</span>成都(Live)</a>
+		              <span>赵雷</span>
+		            </li>
+		            <li class="song-list__item">
+		              <a href="#"><span>2</span>自己(Live)</a>
+		              <span>张杰</span>
+		            </li>
+		            <li class="song-list__item">
+		              <a href="#"><span>3</span>灵魂歌手 (Live)</a>
+		              <span>梁博</span>
+		            </li>
+		            <li class="song-list__item">
+		              <a href="#"><span>4</span>逆流成河</a>
+		              <span>金南玲</span>
+		            </li>
+		          </ul>
+		        </li>
+		        <li class="rank-list__item rank-list__3">
+		          <span class="rank-bg"></span>
+		          <span class="mask"></span>
+		          <i class="icon-play"></i>
+		          <div class="title">
+		            <i></i>
+		            <h3>新歌</h3>
+		          </div>
+		          <i class="line"></i>
+		          <ul class="song-list">
+		            <li class="song-list__item">
+		              <a href="#"><span>1</span>我要你(Live)</a>
+		              <span>张杰</span>
+		            </li>
+		            <li class="song-list__item">
+		              <a href="#"><span>2</span>绅士(Live)</a>
+		              <span>薛之谦</span>
+		            </li>
+		            <li class="song-list__item">
+		              <a href="#"><span>3</span>别来纠缠我(Live)</a>
+		              <span>张杰</span>
+		            </li>
+		            <li class="song-list__item">
+		              <a href="#"><span>4</span>你就不要想起我  (Live)</a>
+		              <span>张杰</span>
+		            </li>
+		          </ul>
+		        </li>
+		        <li class="rank-list__item rank-list__4">
+		          <span class="rank-bg"></span>
+		          <span class="mask"></span>
+		          <i class="icon-play"></i>
+		          <div class="title">
+		            <i></i>
+		            <h3>人气榜</h3>
+		          </div>
+		          <i class="line"></i>
+		          <ul class="song-list">
+		            <li class="song-list__item">
+		              <a href="#"><span>1</span>别来纠缠我(Live)</a>
+		              <span>张杰</span>
+		            </li>
+		            <li class="song-list__item">
+		              <a href="#"><span>2</span>拿不走的记忆 (Live)</a>
+		              <span>迪玛希Dimash</span>
+		            </li>
+		            <li class="song-list__item">
+		              <a href="#"><span>3</span>成 都 (Live)</a>
+		              <span>赵雷</span>
+		            </li>
+		            <li class="song-list__item">
+		              <a href="#"><span>4</span>丑八怪</a>
+		              <span>薛之谦</span>
+		            </li>
+		          </ul>
+		        </li>
+		      </ul>
+		    </div>
+		  </div>
+	</div>
+	<!-- MV首播 -->
+	<div class="section section6">
+		<div class="main" id="mv">
+	    	<div class="main-inner">
+		      <div class="main-title"><!-- 
+		        <h2 class="title"><i></i></h2>
+		        <span class="line line-left"></span>
+		        <span class="line line-right"></span> -->
+		      </div>
+		      <a href="#" class="readAll">全部<i class="icon-sprite"></i></a>
+		      <div class="main-tab tab-title">
+		        <a href="javascript:;" class="item item-cur">全部</a>
+		        <a href="javascript:;" class="item">华语</a>
+		        <a href="javascript:;" class="item">欧美</a>
+		        <a href="javascript:;" class="item">港台</a>
+		        <a href="javascript:;" class="item">韩国</a>
+		        <a href="javascript:;" class="item">日本</a>
+		      </div>
+		      <ul class="mv-list tab-cont">
+		        <li class="item">
+		          <a href="#" class="img"><img src="images/cont/mv_img1.jpg" alt="#"><i class="icon-play"></i></a>
+		          <div class="info">
+		            <a href="#" class="title">Let Me Love You</a>
+		            <a href="#" class="author">刘惜君</a>
+		            <span class="play-total"><i class="icon-sprite"></i>18.8万</span>
+		          </div>
+		        </li>
+		        <li class="item">
+		          <a href="#" class="img"><img src="images/cont/mv_img2.jpg" alt="#"><i class="icon-play"></i></a>
+		          <div class="info">
+		            <a href="#" class="title">Let Me Love You</a>
+		            <a href="#" class="author">刘惜君</a>
+		            <span class="play-total"><i class="icon-sprite"></i>18.8万</span>
+		          </div>
+		        </li>
+		        <li class="item">
+		          <a href="#" class="img"><img src="images/cont/mv_img3.jpg" alt="#"><i class="icon-play"></i></a>
+		          <div class="info">
+		            <a href="#" class="title">Let Me Love You</a>
+		            <a href="#" class="author">刘惜君</a>
+		            <span class="play-total"><i class="icon-sprite"></i>18.8万</span>
+		          </div>
+		        </li>
+		        <li class="item">
+		          <a href="#" class="img"><img src="images/cont/mv_img4.jpg" alt="#"><i class="icon-play"></i></a>
+		          <div class="info">
+		            <a href="#" class="title">Let Me Love You</a>
+		            <a href="#" class="author">刘惜君</a>
+		            <span class="play-total"><i class="icon-sprite"></i>18.8万</span>
+		          </div>
+		        </li>
+		        <li class="item">
+		          <a href="#" class="img"><img src="images/cont/mv_img5.jpg" alt="#"><i class="icon-play"></i></a>
+		          <div class="info">
+		            <a href="#" class="title">Let Me Love You</a>
+		            <a href="#" class="author">刘惜君</a>
+		            <span class="play-total"><i class="icon-sprite"></i>18.8万</span>
+		          </div>
+		        </li>
+		        <li class="item">
+		          <a href="#" class="img"><img src="images/cont/mv_img6.jpg" alt="#"><i class="icon-play"></i></a>
+		          <div class="info">
+		            <a href="#" class="title">Let Me Love You</a>
+		            <a href="#" class="author">刘惜君</a>
+		            <span class="play-total"><i class="icon-sprite"></i>18.8万</span>
+		          </div>
+		        </li>
+		        <li class="item">
+		          <a href="#" class="img"><img src="images/cont/mv_img7.jpg" alt="#"><i class="icon-play"></i></a>
+		          <div class="info">
+		            <a href="#" class="title">Let Me Love You</a>
+		            <a href="#" class="author">刘惜君</a>
+		            <span class="play-total"><i class="icon-sprite"></i>18.8万</span>
+		          </div>
+		        </li>
+		        <li class="item">
+		          <a href="#" class="img"><img src="images/cont/mv_img8.jpg" alt="#"><i class="icon-play"></i></a>
+		          <div class="info">
+		            <a href="#" class="title">Let Me Love You</a>
+		            <a href="#" class="author">刘惜君</a>
+		            <span class="play-total"><i class="icon-sprite"></i>18.8万</span>
+		          </div>
+		        </li>
+		      </ul>
+		    </div>
+	  </div>
+	</div>
+	<!-- Join Us -->
+	<div class="section section7">
+
+		<div class="bg101"></div>
+		<div class="nn"></div>
+
+		<a class="go" >马上体验</a>
+	</div>
+</div>
+</body>
+
+<!-- 首页轮播次效果 -->
+<script type="text/javascript" src="js/posterTvGrid.js"></script>
+<script type="text/javascript">
+	var posterTvGrid = new posterTvGrid('posterTvGrid',{className: "posterTvGrid"},[
+	    {"img":"images\/1.jpg","title":"Lorem ipsum dolor sit amet","url":"#"},
+	    {"img":"images\/2.jpg","title":"Lorem ipsum dolor sit amet","url":"#"},
+	    {"img":"images\/3.jpg","title":"Lorem ipsum dolor sit amet","url":"#"},
+	    {"img":"images\/4.jpg","title":"Lorem ipsum dolor sit amet","url":"#"},
+	    {"img":"images\/5.jpg","title":"Lorem ipsum dolor sit amet","url":"#"},
+	    {"img":"images\/6.jpg","title":"Lorem ipsum dolor sit amet","url":"#"},
+	    {"img":"images\/7.jpg","title":"Lorem ipsum dolor sit amet","url":"#"},
+	    {"img":"images\/8.jpg","title":"Lorem ipsum dolor sit amet","url":"#"},
+	    {"img":"images\/9.jpg","title":"Lorem ipsum dolor sit amet","url":"#"}
+	  ]
+	); 
+</script>
+<!-- 新歌首发js -->
+<script src="js/script.js"></script>
+</html>
